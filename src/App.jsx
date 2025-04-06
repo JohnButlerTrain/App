@@ -1,6 +1,7 @@
 // src/App.jsx
 import { useState } from 'react';
 import { Button, Typography, Container, Box } from '@mui/material';
+import { VehicleForm } from './components/VehicleForm'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,6 +19,7 @@ function App() {
         >
           Count is: {count}
         </Button>
+        <VehicleForm />
       </Box>
     </Container>
   );
