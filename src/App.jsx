@@ -1,24 +1,50 @@
-// src/App.jsx (partial)
+// src/App.jsx
+import { useState } from 'react';
+import { Container, Box, Typography, Grid, Paper } from '@mui/material';
 import VehicleForm from './components/VehicleForm';
-// other imports...
+import CostSummary from './components/CostSummary';
+import ComparisonChart from './components/ComparisonChart';
 
 function App() {
   const [vehicles, setVehicles] = useState([]);
   
   const handleAddVehicle = (vehicleData) => {
-    setVehicles([...vehicles, vehicleData]);
+    // Create a copy of the vehicle data to avoid reference issues
+    const vehicleCopy = { ...vehicleData };
+    setVehicles(prevVehicles => [...prevVehicles, vehicleCopy]);
   };
 
   return (
     <Container maxWidth="lg">
-      {/* ... */}
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <VehicleForm onAddVehicle={handleAddVehicle} />
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom align="center">
+          Vehicle Total Cost of Ownership Calculator
+        </Typography>
+        
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <VehicleForm onAddVehicle={handleAddVehicle} />
+          </Grid>
+          
+          <Grid item xs={12} md={6}>
+            {vehicles.length > 0 ? (
+              <CostSummary vehicle={vehicles[vehicles.length - 1]} />
+            ) : (
+              <Paper sx={{ p: 3 }}>
+                <Typography variant="body1">
+                  No vehicles added yet. Fill out the form to see cost analysis.
+                </Typography>
+              </Paper>
+            )}
+          </Grid>
+          
+          <Grid item xs={12}>
+            {vehicles.length > 0 && <ComparisonChart vehicles={vehicles} />}
+          </Grid>
         </Grid>
-        {/* ... */}
-      </Grid>
-      {/* ... */}
+      </Box>
     </Container>
   );
 }
+
+export default App;
