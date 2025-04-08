@@ -16,6 +16,8 @@ import VehicleForm from './components/VehicleForm';
 import CostSummary from './components/CostSummary';
 import ComparisonChart from './components/ComparisonChart';
 import CalculateIcon from '@mui/icons-material/Calculate';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 function App() {
   const [vehicles, setVehicles] = useState([]);
@@ -72,43 +74,64 @@ function App() {
             </Grid>
             
             {/* Vehicle Cost Summaries Section */}
-            <Grid item xs={12} md={6} lg={8}>
-              {vehicles.length > 0 ? (
-                <Grid container spacing={3}>
-                  {vehicles.map((vehicle, index) => (
-                    <Grid item xs={12} md={6} key={index}>
-                      <CostSummary vehicle={vehicle} />
-                    </Grid>
-                  ))}
-                </Grid>
-              ) : (
-                <Paper 
-                  sx={{ 
-                    p: 4,
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    bgcolor: 'background.paper',
-                    borderRadius: 2
-                  }}
-                >
-                  <Box sx={{ textAlign: 'center' }}>
-                    <CalculateIcon 
-                      sx={{ 
-                        fontSize: 60,
-                        color: 'primary.light',
-                        opacity: 0.7,
-                        mb: 2
-                      }}
-                    />
-                    <Typography variant="body1" color="text.secondary">
-                      No vehicles added yet. Fill out the form to see cost analysis.
-                    </Typography>
-                  </Box>
-                </Paper>
-              )}
-            </Grid>
+<Grid item xs={12} md={6} lg={8}>
+  {vehicles.length > 0 ? (
+    <Grid container spacing={3}>
+      {vehicles.map((vehicle, index) => (
+        <Grid item xs={12} md={6} key={index}>
+          <Box sx={{ position: 'relative' }}>
+            {/* Delete button */}
+            <IconButton 
+              aria-label="delete"
+              onClick={() => setVehicles(vehicles.filter((_, i) => i !== index))}
+              sx={{ 
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                zIndex: 1,
+                bgcolor: 'rgba(255,255,255,0.7)',
+                '&:hover': {
+                  bgcolor: 'rgba(255,0,0,0.1)'
+                }
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            
+            {/* Unmodified CostSummary component */}
+            <CostSummary vehicle={vehicle} />
+          </Box>
+        </Grid>
+      ))}
+    </Grid>
+  ) : (
+    <Paper 
+      sx={{ 
+        p: 4,
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.paper',
+        borderRadius: 2
+      }}
+    >
+      <Box sx={{ textAlign: 'center' }}>
+        <CalculateIcon 
+          sx={{ 
+            fontSize: 60,
+            color: 'primary.light',
+            opacity: 0.7,
+            mb: 2
+          }}
+        />
+        <Typography variant="body1" color="text.secondary">
+          No vehicles added yet. Fill out the form to see cost analysis.
+        </Typography>
+      </Box>
+    </Paper>
+  )}
+</Grid>
           </Grid>
           
           {/* Comparison Chart Section */}
