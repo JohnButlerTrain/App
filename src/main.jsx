@@ -1,19 +1,61 @@
-// src/main.jsx or src/index.jsx
+// src/main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
 
-// Create a theme instance
+// Define the theme directly in this file
 const theme = createTheme({
-  // You can customize your theme here
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#3f51b5',
+      light: '#757de8',
+      dark: '#002984',
     },
     secondary: {
-      main: '#dc004e',
+      main: '#f50057',
+      light: '#ff5983',
+      dark: '#bb002f',
+    },
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  },
+  typography: {
+    fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
+    h4: {
+      fontWeight: 600,
+    },
+    h5: {
+      fontWeight: 500,
+    },
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 8px 40px -12px rgba(0,0,0,0.2)',
+          transition: 'box-shadow 0.3s ease-in-out',
+          '&:hover': {
+            boxShadow: '0 16px 70px -12px rgba(0,0,0,0.25)',
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 50,
+          textTransform: 'none',
+          fontWeight: 500,
+          padding: '10px 24px',
+        },
+      },
     },
   },
 });
@@ -21,7 +63,7 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* Provides a baseline CSS reset */}
+      <CssBaseline />
       <App />
     </ThemeProvider>
   </React.StrictMode>

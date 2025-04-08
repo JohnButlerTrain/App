@@ -8,10 +8,20 @@ import {
   Typography,
   MenuItem,
   Button,
-  InputAdornment
+  InputAdornment,
+  Box,
+  useTheme,
+  Divider
 } from '@mui/material';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import SpeedIcon from '@mui/icons-material/Speed';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AddIcon from '@mui/icons-material/Add';
 
 const VehicleForm = ({ onAddVehicle }) => {
+  const theme = useTheme();
+  
   const [vehicleData, setVehicleData] = useState({
     name: '',
     purchasePrice: '',
@@ -46,7 +56,6 @@ const VehicleForm = ({ onAddVehicle }) => {
     onAddVehicle(vehicleData);
   };
 
-  // Determine the fuel efficiency label and input adornment based on fuel type
   const getFuelEfficiencyDetails = () => {
     if (vehicleData.fuelType === 'electric') {
       return {
@@ -73,18 +82,52 @@ const VehicleForm = ({ onAddVehicle }) => {
     };
   };
 
+  const getVehicleTypeIcon = () => {
+    switch(vehicleData.fuelType) {
+      case 'electric':
+        return <DirectionsCarIcon sx={{ color: '#64b5f6' }} />; // Light blue for electric
+      case 'hybrid':
+        return <DirectionsCarIcon sx={{ color: '#81c784' }} />; // Light green for hybrid
+      case 'diesel':
+        return <DirectionsCarIcon sx={{ color: '#ffb74d' }} />; // Orange for diesel
+      default:
+        return <DirectionsCarIcon sx={{ color: theme.palette.primary.main }} />; // Primary color for gas
+    }
+  };
+
   const fuelEfficiencyDetails = getFuelEfficiencyDetails();
   const fuelPriceDetails = getFuelPriceDetails();
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h5" gutterBottom>
-          Vehicle Details
-        </Typography>
+    <Card 
+      variant="outlined" 
+      sx={{ 
+        height: '100%',
+        boxShadow: '0 8px 40px -12px rgba(0,0,0,0.2)',
+        transition: 'box-shadow 0.3s ease-in-out',
+        '&:hover': {
+          boxShadow: '0 16px 70px -12px rgba(0,0,0,0.25)',
+        },
+        borderRadius: theme.shape.borderRadius
+      }}
+    >
+      <CardContent sx={{ p: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          {getVehicleTypeIcon()}
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              ml: 2,
+              color: theme.palette.primary.main,
+              fontWeight: 500
+            }}
+          >
+            Vehicle Details
+          </Typography>
+        </Box>
+        
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            {/* Form fields remain the same */}
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -94,7 +137,27 @@ const VehicleForm = ({ onAddVehicle }) => {
                 onChange={handleChange}
                 placeholder="e.g. 2023 Toyota Camry"
                 required
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <DirectionsCarIcon color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
+            </Grid>
+            
+            <Grid item xs={12}>
+              <Divider>
+                <Typography variant="body2" color="text.secondary" sx={{ px: 1 }}>
+                  BASIC INFORMATION
+                </Typography>
+              </Divider>
             </Grid>
             
             <Grid item xs={12} sm={6}>
@@ -106,9 +169,18 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.purchasePrice}
                 onChange={handleChange}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon color="action" />
+                    </InputAdornment>
+                  ),
                 }}
                 required
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
             </Grid>
             
@@ -120,6 +192,18 @@ const VehicleForm = ({ onAddVehicle }) => {
                 name="fuelType"
                 value={vehicleData.fuelType}
                 onChange={handleChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocalGasStationIcon color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               >
                 <MenuItem value="gasoline">Gasoline</MenuItem>
                 <MenuItem value="diesel">Diesel</MenuItem>
@@ -137,11 +221,23 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.fuelEfficiency}
                 onChange={handleChange}
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">
-                    {fuelEfficiencyDetails.adornment}
-                  </InputAdornment>
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SpeedIcon color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {fuelEfficiencyDetails.adornment}
+                    </InputAdornment>
+                  ),
                 }}
                 required
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
             </Grid>
             
@@ -154,13 +250,32 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.fuelPrice}
                 onChange={handleChange}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                  endAdornment: <InputAdornment position="end">
-                    {fuelPriceDetails.adornment}
-                  </InputAdornment>
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {fuelPriceDetails.adornment}
+                    </InputAdornment>
+                  ),
                 }}
                 required
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
+            </Grid>
+            
+            <Grid item xs={12}>
+              <Divider>
+                <Typography variant="body2" color="text.secondary" sx={{ px: 1 }}>
+                  OWNERSHIP COSTS
+                </Typography>
+              </Divider>
             </Grid>
             
             <Grid item xs={12} sm={6}>
@@ -172,9 +287,21 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.annualMileage}
                 onChange={handleChange}
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">miles</InputAdornment>
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SpeedIcon color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">miles</InputAdornment>
+                  ),
                 }}
                 required
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
             </Grid>
             
@@ -187,9 +314,18 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.insuranceCost}
                 onChange={handleChange}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon color="action" />
+                    </InputAdornment>
+                  ),
                 }}
                 required
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
             </Grid>
             
@@ -202,9 +338,18 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.maintenanceCost}
                 onChange={handleChange}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon color="action" />
+                    </InputAdornment>
+                  ),
                 }}
                 required
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
             </Grid>
             
@@ -217,6 +362,11 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.yearsOfOwnership}
                 onChange={handleChange}
                 required
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2
+                  }
+                }}
               />
             </Grid>
             
@@ -226,6 +376,18 @@ const VehicleForm = ({ onAddVehicle }) => {
                 color="primary" 
                 type="submit" 
                 fullWidth
+                sx={{ 
+                  mt: 2,
+                  py: 1.5,
+                  borderRadius: 50,
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  boxShadow: '0 4px 12px rgba(63, 81, 181, 0.2)',
+                  '&:hover': {
+                    boxShadow: '0 6px 14px rgba(63, 81, 181, 0.4)',
+                  }
+                }}
+                startIcon={<AddIcon />}
               >
                 Add Vehicle to Comparison
               </Button>
