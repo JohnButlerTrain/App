@@ -51,16 +51,17 @@ const ComparisonChart = (props) => {
         const fuelPriceNum = Number(fuelPrice);
         
         // Calculate annual fuel cost
-        let fuelCostPerYear = 0;
-        if (fuelType === 'electric') {
-          const kwhPerMile = Number(fuelEfficiency);
-          fuelCostPerYear = annualMiles * kwhPerMile * fuelPriceNum;
-        } else {
-          const mpg = Number(fuelEfficiency);
-          const gallonsPerYear = annualMiles / mpg;
-          fuelCostPerYear = gallonsPerYear * fuelPriceNum;
-        }
-        
+let fuelCostPerYear = 0;
+if (fuelType === 'electric') {
+  // Electricity cost using miles/kWh
+  const milesPerKwh = Number(fuelEfficiency);
+  const kwhPerYear = annualMiles / milesPerKwh;
+  fuelCostPerYear = kwhPerYear * fuelPriceNum;
+} else {
+  const mpg = Number(fuelEfficiency);
+  const gallonsPerYear = annualMiles / mpg;
+  fuelCostPerYear = gallonsPerYear * fuelPriceNum;
+}
         // Calculate total cost at this year
         const vehicleCost = 
           price + // Purchase price (upfront)

@@ -36,18 +36,18 @@ const CostSummary = ({ vehicle }) => {
     const fuelPriceNum = Number(fuelPrice);
     
     // Calculate fuel costs
-    let fuelCostPerYear = 0;
-    if (fuelType === 'electric') {
-      // Electricity cost using kWh/mile
-      const kwhPerMile = Number(fuelEfficiency);
-      fuelCostPerYear = annualMiles * kwhPerMile * fuelPriceNum;
-    } else {
-      // Gas/Diesel cost
-      const mpg = Number(fuelEfficiency);
-      const gallonsPerYear = annualMiles / mpg;
-      fuelCostPerYear = gallonsPerYear * fuelPriceNum;
-    }
-    
+let fuelCostPerYear = 0;
+if (fuelType === 'electric') {
+  // Electricity cost using miles/kWh
+  const milesPerKwh = Number(fuelEfficiency);
+  const kwhPerYear = annualMiles / milesPerKwh;
+  fuelCostPerYear = kwhPerYear * fuelPriceNum;
+} else {
+  // Gas/Diesel cost
+  const mpg = Number(fuelEfficiency);
+  const gallonsPerYear = annualMiles / mpg;
+  fuelCostPerYear = gallonsPerYear * fuelPriceNum;
+}
     // Calculate total costs
     const totalFuelCost = fuelCostPerYear * years;
     const totalInsuranceCost = insurance * years;

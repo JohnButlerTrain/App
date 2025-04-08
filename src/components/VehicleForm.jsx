@@ -46,11 +46,12 @@ const VehicleForm = ({ onAddVehicle }) => {
     onAddVehicle(vehicleData);
   };
 
+  // Determine the fuel efficiency label and input adornment based on fuel type
   const getFuelEfficiencyDetails = () => {
     if (vehicleData.fuelType === 'electric') {
       return {
         label: 'Energy Efficiency',
-        adornment: 'kWh/mile'
+        adornment: 'miles/kWh'
       };
     } 
     return {
@@ -83,6 +84,7 @@ const VehicleForm = ({ onAddVehicle }) => {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
+            {/* Form fields remain the same */}
             <Grid item xs={12}>
               <TextField
                 fullWidth
