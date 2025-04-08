@@ -27,54 +27,49 @@ const VehicleForm = ({ onAddVehicle }) => {
   // Set default fuel price based on fuel type
   useEffect(() => {
     if (vehicleData.fuelType === 'electric' && !vehicleData.fuelPrice) {
-      setVehicleData(prev => ({ ...prev, fuelPrice: '0.14' })); // Default electricity price: $0.14/kWh
+      setVehicleData(prev => ({ ...prev, fuelPrice: '0.14' }));
     } else if (['gasoline', 'diesel', 'hybrid'].includes(vehicleData.fuelType) && !vehicleData.fuelPrice) {
-      setVehicleData(prev => ({ ...prev, fuelPrice: '3.50' })); // Default gas price: $3.50/gal
+      setVehicleData(prev => ({ ...prev, fuelPrice: '3.50' }));
     }
   }, [vehicleData.fuelType]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setVehicleData({
-      ...vehicleData,
+    setVehicleData(prev => ({
+      ...prev,
       [name]: value
-    });
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddVehicle(vehicleData);
-    // Optionally reset form or provide feedback
   };
 
-  // Determine the fuel efficiency label and input adornment based on fuel type
   const getFuelEfficiencyDetails = () => {
     if (vehicleData.fuelType === 'electric') {
       return {
         label: 'Energy Efficiency',
         adornment: 'kWh/mile'
       };
-    } else {
-      return {
-        label: 'Fuel Efficiency',
-        adornment: 'mpg'
-      };
-    }
+    } 
+    return {
+      label: 'Fuel Efficiency',
+      adornment: 'mpg'
+    };
   };
 
-  // Determine the fuel price label based on fuel type
   const getFuelPriceDetails = () => {
     if (vehicleData.fuelType === 'electric') {
       return {
         label: 'Electricity Price',
         adornment: '$/kWh'
       };
-    } else {
-      return {
-        label: 'Fuel Price',
-        adornment: '$/gal'
-      };
     }
+    return {
+      label: 'Fuel Price',
+      adornment: '$/gal'
+    };
   };
 
   const fuelEfficiencyDetails = getFuelEfficiencyDetails();
@@ -83,7 +78,7 @@ const VehicleForm = ({ onAddVehicle }) => {
   return (
     <Card variant="outlined">
       <CardContent>
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography variant="h5" gutterBottom>
           Vehicle Details
         </Typography>
         <form onSubmit={handleSubmit}>
@@ -109,7 +104,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.purchasePrice}
                 onChange={handleChange}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
                 }}
                 required
               />
@@ -142,7 +137,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 InputProps={{
                   endAdornment: <InputAdornment position="end">
                     {fuelEfficiencyDetails.adornment}
-                  </InputAdornment>,
+                  </InputAdornment>
                 }}
                 required
               />
@@ -160,7 +155,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                   startAdornment: <InputAdornment position="start">$</InputAdornment>,
                   endAdornment: <InputAdornment position="end">
                     {fuelPriceDetails.adornment}
-                  </InputAdornment>,
+                  </InputAdornment>
                 }}
                 required
               />
@@ -175,7 +170,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.annualMileage}
                 onChange={handleChange}
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">miles</InputAdornment>,
+                  endAdornment: <InputAdornment position="end">miles</InputAdornment>
                 }}
                 required
               />
@@ -190,7 +185,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.insuranceCost}
                 onChange={handleChange}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
                 }}
                 required
               />
@@ -205,7 +200,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 value={vehicleData.maintenanceCost}
                 onChange={handleChange}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>
                 }}
                 required
               />
