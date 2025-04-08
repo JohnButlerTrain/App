@@ -20,6 +20,7 @@ const CostSummary = ({ vehicle }) => {
       purchasePrice,
       fuelType,
       fuelEfficiency,
+      fuelPrice,
       annualMileage,
       insuranceCost,
       maintenanceCost,
@@ -32,19 +33,19 @@ const CostSummary = ({ vehicle }) => {
     const annualMiles = Number(annualMileage);
     const insurance = Number(insuranceCost);
     const maintenance = Number(maintenanceCost);
+    const fuelPriceNum = Number(fuelPrice);
     
     // Calculate fuel costs
     let fuelCostPerYear = 0;
     if (fuelType === 'electric') {
-      // Electricity cost (average $0.14 per kWh)
-      const kwhPer100Miles = Number(fuelEfficiency);
-      const costPer100Miles = kwhPer100Miles * 0.14;
-      fuelCostPerYear = (annualMiles / 100) * costPer100Miles;
+      // Electricity cost using kWh/mile
+      const kwhPerMile = Number(fuelEfficiency);
+      fuelCostPerYear = annualMiles * kwhPerMile * fuelPriceNum;
     } else {
-      // Gas/Diesel cost (average $3.50 per gallon)
+      // Gas/Diesel cost
       const mpg = Number(fuelEfficiency);
       const gallonsPerYear = annualMiles / mpg;
-      fuelCostPerYear = gallonsPerYear * 3.50;
+      fuelCostPerYear = gallonsPerYear * fuelPriceNum;
     }
     
     // Calculate total costs
