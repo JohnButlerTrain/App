@@ -108,7 +108,7 @@ const VehicleForm = ({ onAddVehicle }) => {
         '&:hover': {
           boxShadow: '0 16px 70px -12px rgba(0,0,0,0.25)',
         },
-        borderRadius: theme.shape.borderRadius
+        borderRadius: 2
       }}
     >
       <CardContent sx={{ p: 4 }}>
@@ -146,7 +146,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 }}
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -178,7 +178,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 required
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -201,7 +201,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 }}
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               >
@@ -235,7 +235,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 required
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -264,7 +264,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 required
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -299,7 +299,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 required
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -323,7 +323,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 required
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -347,7 +347,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 required
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -364,7 +364,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 required
                 sx={{ 
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2
+                    borderRadius: 1
                   }
                 }}
               />
@@ -379,7 +379,7 @@ const VehicleForm = ({ onAddVehicle }) => {
                 sx={{ 
                   mt: 2,
                   py: 1.5,
-                  borderRadius: 50,
+                  borderRadius: 25,
                   textTransform: 'none',
                   fontWeight: 500,
                   boxShadow: '0 4px 12px rgba(63, 81, 181, 0.2)',
