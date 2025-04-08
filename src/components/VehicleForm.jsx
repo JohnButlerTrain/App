@@ -1,5 +1,5 @@
 // src/components/VehicleForm.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Card,
   CardContent,
@@ -11,17 +11,27 @@ import {
   InputAdornment
 } from '@mui/material';
 
-export const VehicleForm = ({ onAddVehicle }) => {
+const VehicleForm = ({ onAddVehicle }) => {
   const [vehicleData, setVehicleData] = useState({
     name: '',
     purchasePrice: '',
     fuelType: 'gasoline',
     fuelEfficiency: '',
+    fuelPrice: '',
     annualMileage: '12000',
     insuranceCost: '',
     maintenanceCost: '',
     yearsOfOwnership: '5'
   });
+
+  // Set default fuel price based on fuel type
+  useEffect(() => {
+    if (vehicleData.fuelType === 'electric' && !vehicleData.fuelPrice) {
+      setVehicleData(prev => ({ ...prev, fuelPrice: '0.14' })); // Default electricity price: $0.14/kWh
+    } else if (['gasoline', 'diesel', 'hybrid'].includes(vehicleData.fuelType) && !vehicleData.fuelPrice) {
+      setVehicleData(prev => ({ ...prev, fuelPrice: '3.50' })); // Default gas price: $3.50/gal
+    }
+  }, [vehicleData.fuelType]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +46,39 @@ export const VehicleForm = ({ onAddVehicle }) => {
     onAddVehicle(vehicleData);
     // Optionally reset form or provide feedback
   };
+
+  // Determine the fuel efficiency label and input adornment based on fuel type
+  const getFuelEfficiencyDetails = () => {
+    if (vehicleData.fuelType === 'electric') {
+      return {
+        label: 'Energy Efficiency',
+        adornment: 'kWh/mile'
+      };
+    } else {
+      return {
+        label: 'Fuel Efficiency',
+        adornment: 'mpg'
+      };
+    }
+  };
+
+  // Determine the fuel price label based on fuel type
+  const getFuelPriceDetails = () => {
+    if (vehicleData.fuelType === 'electric') {
+      return {
+        label: 'Electricity Price',
+        adornment: '$/kWh'
+      };
+    } else {
+      return {
+        label: 'Fuel Price',
+        adornment: '$/gal'
+      };
+    }
+  };
+
+  const fuelEfficiencyDetails = getFuelEfficiencyDetails();
+  const fuelPriceDetails = getFuelPriceDetails();
 
   return (
     <Card variant="outlined">
@@ -91,14 +134,32 @@ export const VehicleForm = ({ onAddVehicle }) => {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Fuel Efficiency"
+                label={fuelEfficiencyDetails.label}
                 name="fuelEfficiency"
                 type="number"
                 value={vehicleData.fuelEfficiency}
                 onChange={handleChange}
                 InputProps={{
                   endAdornment: <InputAdornment position="end">
-                    {vehicleData.fuelType === 'electric' ? 'kWh/100mi' : 'mpg'}
+                    {fuelEfficiencyDetails.adornment}
+                  </InputAdornment>,
+                }}
+                required
+              />
+            </Grid>
+            
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label={fuelPriceDetails.label}
+                name="fuelPrice"
+                type="number"
+                value={vehicleData.fuelPrice}
+                onChange={handleChange}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                  endAdornment: <InputAdornment position="end">
+                    {fuelPriceDetails.adornment}
                   </InputAdornment>,
                 }}
                 required
