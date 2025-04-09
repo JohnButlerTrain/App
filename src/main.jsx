@@ -9,12 +9,12 @@ import App from './App';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#3f51b5',
+      main: '#981E32',
       light: '#757de8',
       dark: '#002984',
     },
     secondary: {
-      main: '#f50057',
+      main: '#5E6A71',
       light: '#ff5983',
       dark: '#bb002f',
     },

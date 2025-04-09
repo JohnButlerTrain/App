@@ -57,7 +57,7 @@ function App() {
             <Typography 
               variant="h4" 
               component="h1" 
-              color="primary" 
+              color="#981E32" 
               gutterBottom
             >
               Total Cost of Ownership Calculator
@@ -120,7 +120,7 @@ function App() {
         <CalculateIcon 
           sx={{ 
             fontSize: 60,
-            color: 'primary.light',
+            color: '#5E6A71',
             opacity: 0.7,
             mb: 2
           }}
