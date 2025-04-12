@@ -43,6 +43,22 @@ const VehicleForm = ({ onAddVehicle }) => {
     electricRange: ''
   });
 
+
+  // const [vehicleData, setVehicleData] = useState({
+  //   name: '2025 Hyunda Kona',
+  //   purchasePrice: '34000',
+  //   fuelType: 'gasoline',
+  //   fuelEfficiency: '20',
+  //   fuelPrice: '3.50',
+  //   annualMileage: '12000',
+  //   insuranceCost: '100',
+  //   maintenanceCost: '100',
+  //   yearsOfOwnership: '15',
+  //   // New fields for vehicle type information
+  //   sizeClass: 'Medium SUV',
+  //   powertrainType: 'ice_ci',
+  //   electricRange: '230'
+  // });
   // Set default fuel price based on fuel type
   useEffect(() => {
     // Always update the fuel price when fuel type changes
