@@ -4,10 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Divider,
   Box,
   useTheme,
@@ -15,14 +11,9 @@ import {
   Grid
 } from '@mui/material';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import BuildIcon from '@mui/icons-material/Build';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import SpeedIcon from '@mui/icons-material/Speed';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
+import MajorWidgetsDisplay from './cost-summary/MajorWidgetsDisplay';
 
 const CostSummary = ({ vehicle }) => {
   const theme = useTheme();
@@ -147,109 +138,15 @@ const CostSummary = ({ vehicle }) => {
           </Typography>
         </Box>
         
+        {/* Calculated Cost Summary Widgets */}
         <Grid container spacing={2}>
-          {/* Purchase Cost */}
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%'
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <AttachMoneyIcon sx={{ color: fuelTypeColor, mr: 1 }} />
-                <Typography variant="subtitle1">Purchase Price</Typography>
-              </Box>
-              <Typography variant="h5" sx={{ fontWeight: 500, mt: 'auto' }}>
-                ${calculations.purchaseCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </Typography>
-            </Paper>
-          </Grid>
-          
-          {/* Fuel Cost */}
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%'
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <LocalGasStationIcon sx={{ color: fuelTypeColor, mr: 1 }} />
-                <Typography variant="subtitle1">Fuel Cost ({vehicle.yearsOfOwnership} years)</Typography>
-              </Box>
-              <Typography variant="h5" sx={{ fontWeight: 500, mt: 'auto' }}>
-                ${calculations.fuelCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                ${calculations.fuelCostPerYear.toLocaleString(undefined, { maximumFractionDigits: 2 })} per year
-              </Typography>
-            </Paper>
-          </Grid>
-          
-          {/* Insurance Cost */}
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%'
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <VerifiedUserIcon sx={{ color: fuelTypeColor, mr: 1 }} />
-                <Typography variant="subtitle1">Insurance ({vehicle.yearsOfOwnership} years)</Typography>
-              </Box>
-              <Typography variant="h5" sx={{ fontWeight: 500, mt: 'auto' }}>
-                ${calculations.insuranceCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                ${vehicle.insuranceCost.toLocaleString(undefined, { maximumFractionDigits: 2 })} per year
-              </Typography>
-            </Paper>
-          </Grid>
-          
-          {/* Maintenance Cost */}
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'background.default',
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%'
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <BuildIcon sx={{ color: fuelTypeColor, mr: 1 }} />
-                <Typography variant="subtitle1">Maintenance ({vehicle.yearsOfOwnership} years)</Typography>
-              </Box>
-              <Typography variant="h5" sx={{ fontWeight: 500, mt: 'auto' }}>
-                ${calculations.maintenanceCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                ${vehicle.maintenanceCost.toLocaleString(undefined, { maximumFractionDigits: 2 })} per year
-              </Typography>
-            </Paper>
-          </Grid>
+          <MajorWidgetsDisplay 
+            vehicle={vehicle} 
+            calculations={calculations} 
+            fuelTypeColor={fuelTypeColor} 
+          />
         </Grid>
-        
+
         <Divider sx={{ my: 3 }} />
         
         {/* Total Cost Summary Box */}
