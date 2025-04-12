@@ -19,6 +19,7 @@ import CalculateIcon from '@mui/icons-material/Calculate';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import logo from './assets/logo.png'; // Import your logo
+import PerMileCostChart from './components/PerMileCostChart';
 
 function App() {
   const [vehicles, setVehicles] = useState([]);
@@ -151,6 +152,7 @@ function App() {
             <Box sx={{ width: '100%', mt: 4 }}>
               <Divider sx={{ mb: 4 }} />
               <ComparisonChart vehicles={vehicles} />
+              {/* <PerMileCostChart vehicles={vehicles} /> */}
             </Box>
           )}
         </Container>
