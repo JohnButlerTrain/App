@@ -14,6 +14,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import SpeedIcon from '@mui/icons-material/Speed';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import MajorWidgetsDisplay from './cost-summary/MajorWidgetsDisplay';
+import TotalCost from './cost-summary/TotalCost';
 
 const CostSummary = ({ vehicle }) => {
   const theme = useTheme();
@@ -150,23 +151,7 @@ const CostSummary = ({ vehicle }) => {
         <Divider sx={{ my: 3 }} />
         
         {/* Total Cost Summary Box */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: 3,
-            borderRadius: 2,
-            bgcolor: 'primary.main',
-            color: 'white',
-            mb: 3
-          }}
-        >
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
-            Total Cost of Ownership
-          </Typography>
-          <Typography variant="h3" sx={{ fontWeight: 600 }}>
-            ${calculations.totalCost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-          </Typography>
-        </Paper>
+        <TotalCost calculations={calculations} />
         
         {/* Per-year and Per-mile metrics */}
         <Grid container spacing={2}>
