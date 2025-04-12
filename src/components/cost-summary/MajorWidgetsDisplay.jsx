@@ -39,7 +39,7 @@ const MajorWidgetsDisplay = ({ vehicle, calculations, fuelTypeColor }) => {
   ];
 
   return (
-    <Grid container spacing={2}>
+    <>
       {widgets.map((widget, index) => (
         <Grid item xs={12} md={6} key={index}>
           <MajorWidget
@@ -51,7 +51,7 @@ const MajorWidgetsDisplay = ({ vehicle, calculations, fuelTypeColor }) => {
           />
         </Grid>
       ))}
-    </Grid>
+    </>
   );
 };
 

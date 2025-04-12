@@ -7,14 +7,12 @@ import {
   Divider,
   Box,
   useTheme,
-  Paper,
   Grid
 } from '@mui/material';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import SpeedIcon from '@mui/icons-material/Speed';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import MajorWidgetsDisplay from './cost-summary/MajorWidgetsDisplay';
 import TotalCost from './cost-summary/TotalCost';
+import MinorWidgetsDisplay from './cost-summary/MinorWidgetsDisplay';
 
 const CostSummary = ({ vehicle }) => {
   const theme = useTheme();
@@ -140,7 +138,7 @@ const CostSummary = ({ vehicle }) => {
         </Box>
         
         {/* Calculated Cost Summary Widgets */}
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           <MajorWidgetsDisplay 
             vehicle={vehicle} 
             calculations={calculations} 
@@ -152,50 +150,10 @@ const CostSummary = ({ vehicle }) => {
         
         {/* Total Cost Summary Box */}
         <TotalCost calculations={calculations} />
-        
+
         {/* Per-year and Per-mile metrics */}
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'background.default'
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <AccessTimeIcon sx={{ color: 'text.secondary', mr: 1 }} />
-                <Typography variant="subtitle2" color="text.secondary">
-                  Cost per Year
-                </Typography>
-              </Box>
-              <Typography variant="h6" color="text.primary">
-                ${calculations.costPerYear.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </Typography>
-            </Paper>
-          </Grid>
-          
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: 'background.default'
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <SpeedIcon sx={{ color: 'text.secondary', mr: 1 }} />
-                <Typography variant="subtitle2" color="text.secondary">
-                  Cost per Mile
-                </Typography>
-              </Box>
-              <Typography variant="h6" color="text.primary">
-                ${calculations.costPerMile.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-              </Typography>
-            </Paper>
-          </Grid>
+        <Grid container spacing={3}>
+          <MinorWidgetsDisplay calculations={calculations} />
         </Grid>
       </CardContent>
     </Card>
